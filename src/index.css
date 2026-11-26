@@ -121,7 +121,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .yard-canvas { height: clamp(340px, 52vw, 560px); margin: 0 -20px; }
 .yard-loading { width: 100%; height: 100%; }
 .yard-caption {
-  display: flex; flex-direction: column; gap: 2px; min-height: 3.4em;
+  display: flex; flex-direction: column; gap: 2px; min-height: 4.8em;
   max-width: 46ch; margin: 0 auto; text-align: center; color: var(--muted); font-size: .94rem;
 }
 .yard-caption strong { color: var(--text); font: 650 1.05rem/1.3 var(--display); }
@@ -353,3 +353,29 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .hero-id { gap: 14px; }
   .hero-id .hero-status { font-size: .9rem; }
 }
+
+/* Pila 3D: arrastrar y lista de proyectos */
+.yard-gl { cursor: grab; }
+.yard-gl.is-pointing { cursor: pointer; }
+body.is-grabbing, body.is-grabbing .yard-gl { cursor: grabbing; }
+.yard-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 14px; }
+.yard-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line);
+  background: rgba(9, 24, 41, .6); color: var(--muted);
+  font: 500 .84rem/1 var(--body); cursor: pointer;
+  transition: color .2s, border-color .2s, background-color .2s;
+}
+.yard-chip::before { content: ''; width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
+.yard-chip:hover, .yard-chip.is-active { color: var(--text); border-color: var(--c); background: rgba(255,255,255,.05); }
+@media (max-width: 520px) {
+  .yard-chip { font-size: .8rem; padding: 6px 10px; }
+}
+
+.contact-phone {
+  display: flex; align-items: center; gap: 10px; width: fit-content; margin-top: 16px;
+  font: 600 clamp(1.15rem, 2.8vw, 1.7rem)/1.2 var(--display); color: var(--text); text-decoration: none;
+  border-bottom: 2px solid rgba(63, 193, 176, .35); transition: border-color .2s, color .2s;
+}
+.contact-phone svg { color: var(--sea); flex: none; }
+.contact-phone:hover { color: var(--sea); border-color: var(--sea); }

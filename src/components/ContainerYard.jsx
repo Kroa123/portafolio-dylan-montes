@@ -1,5 +1,5 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { ContactShadows } from '@react-three/drei'
+import { ContactShadows, OrbitControls } from '@react-three/drei'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import * as THREE from 'three'
 
@@ -107,9 +107,10 @@ function Container({ project, slot, index, hovered, setHovered, onSelect, animat
     const base = weather(project.color)
     const side = sideTexture(base, project.title, code)
     const end = endTexture(base)
-    const plain = new THREE.MeshStandardMaterial({ color: shade(base, -0.06), roughness: 0.7, metalness: 0.15 })
-    const s = new THREE.MeshStandardMaterial({ map: side, roughness: 0.62, metalness: 0.15 })
-    const e = new THREE.MeshStandardMaterial({ map: end, roughness: 0.65, metalness: 0.15 })
+    const glow = { emissive: new THREE.Color(base), emissiveIntensity: 0 }
+    const plain = new THREE.MeshStandardMaterial({ color: shade(base, -0.06), roughness: 0.7, metalness: 0.15, ...glow })
+    const s = new THREE.MeshStandardMaterial({ map: side, roughness: 0.62, metalness: 0.15, ...glow, emissive: new THREE.Color(base) })
+    const e = new THREE.MeshStandardMaterial({ map: end, roughness: 0.65, metalness: 0.15, ...glow, emissive: new THREE.Color(base) })
     // orden de caras: +x, -x, +y, -y, +z, -z
     return [e, e, plain, plain, s, s]
   }, [fontsReady, project, index])
@@ -133,6 +134,9 @@ function Container({ project, slot, index, hovered, setHovered, onSelect, animat
     const target = y + (isHover ? 0.16 : 0)
     m.position.y = THREE.MathUtils.damp(m.position.y, target, isHover || !animate ? 10 : 30, dt)
     if (animate && t < 0.9) m.position.y = y
+    // brillo suave para que se note aunque esté detrás de otros
+    const glowTarget = isHover ? 0.45 : 0
+    for (const mat of materials) mat.emissiveIntensity = THREE.MathUtils.damp(mat.emissiveIntensity, glowTarget, 8, dt)
   })
 
   if (!materials) return null
@@ -144,7 +148,7 @@ function Container({ project, slot, index, hovered, setHovered, onSelect, animat
       castShadow
       onPointerOver={(e) => { e.stopPropagation(); setHovered(project.id) }}
       onPointerOut={() => setHovered((h) => (h === project.id ? null : h))}
-      onClick={(e) => { e.stopPropagation(); onSelect(project.id) }}
+      onClick={(e) => { e.stopPropagation(); if (e.delta > 6) return; onSelect(project.id) }}
     >
       <boxGeometry args={[L, H, D]} />
     </mesh>
@@ -192,33 +196,63 @@ function Spreader({ target }) {
 }
 
 // Aleja la cámara cuando el lienzo es angosto (móvil) para que entre toda la pila
-function FitCamera() {
+function FitCamera({ controls }) {
   const { camera, size } = useThree()
   useEffect(() => {
     const aspect = size.width / size.height
     const k = aspect < 1.25 ? 1.25 / aspect : 1
     camera.position.set(4.2 * k, 4.4 + (k - 1) * 1.6, 9.2 * k)
-    camera.lookAt(0, 1.1, 0)
     camera.updateProjectionMatrix()
-  }, [camera, size])
+    controls.current?.update()
+  }, [camera, size, controls])
   return null
 }
 
-function Rig({ children }) {
-  const group = useRef()
-  const { pointer } = useThree()
-  useFrame((_, dt) => {
-    const g = group.current
-    if (!g) return
-    g.rotation.y = THREE.MathUtils.damp(g.rotation.y, 0.38 + pointer.x * 0.2, 2.5, dt)
-    g.rotation.x = THREE.MathUtils.damp(g.rotation.x, pointer.y * -0.05, 2.5, dt)
+// Arrastrar para girar la pila. Sin zoom ni desplazamiento, y con giro lento cuando nadie la toca.
+function YardControls({ controls, paused, reducedMotion }) {
+  const dragging = useRef(false)
+  const idleUntil = useRef(0)
+  const { gl, clock } = useThree()
+
+  useEffect(() => {
+    // En celular: el gesto vertical sigue bajando la página, el horizontal gira la pila
+    const el = gl.domElement
+    const t = setTimeout(() => { el.style.touchAction = 'pan-y' }, 0)
+    return () => clearTimeout(t)
+  }, [gl])
+
+  useFrame((state) => {
+    const c = controls.current
+    if (!c) return
+    c.autoRotate = !reducedMotion && !paused && !dragging.current && state.clock.elapsedTime > idleUntil.current
   })
-  return <group ref={group}>{children}</group>
+
+  return (
+    <OrbitControls
+      ref={controls}
+      makeDefault
+      target={[0, 0.7, 0]}
+      enableZoom={false}
+      enablePan={false}
+      enableDamping
+      dampingFactor={0.08}
+      rotateSpeed={0.7}
+      autoRotateSpeed={0.55}
+      minPolarAngle={0.75}
+      maxPolarAngle={1.32}
+      onStart={() => { dragging.current = true; document.body.classList.add('is-grabbing') }}
+      onEnd={() => {
+        dragging.current = false
+        document.body.classList.remove('is-grabbing')
+        idleUntil.current = clock.elapsedTime + 2.5
+      }}
+    />
+  )
 }
 
-export default function ContainerYard({ projects, onSelect, onHover, reducedMotion }) {
-  const [hovered, setHovered] = useState(null)
+export default function ContainerYard({ projects, onSelect, hovered, onHover, reducedMotion }) {
   const [fontsReady, setFontsReady] = useState(false)
+  const controls = useRef()
 
   useEffect(() => {
     let alive = true
@@ -231,28 +265,24 @@ export default function ContainerYard({ projects, onSelect, onHover, reducedMoti
     return () => { alive = false }
   }, [])
 
-  useEffect(() => {
-    onHover?.(hovered)
-    document.body.style.cursor = hovered ? 'pointer' : ''
-    return () => { document.body.style.cursor = '' }
-  }, [hovered, onHover])
-
   const items = projects.slice(0, SLOTS.length)
-  const hoverSlot = hovered ? SLOTS[items.findIndex((p) => p.id === hovered)] : null
+  const hoverIndex = items.findIndex((p) => p.id === hovered)
+  const hoverSlot = hoverIndex >= 0 ? SLOTS[hoverIndex] : null
 
   return (
     <Canvas
       dpr={[1, 1.75]}
       camera={{ position: [4.2, 4.4, 9.2], fov: 33 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      onCreated={({ camera }) => camera.lookAt(0, 1.1, 0)}
-      onPointerMissed={() => setHovered(null)}
+      onPointerMissed={() => onHover(null)}
+      className={hovered ? 'yard-gl is-pointing' : 'yard-gl'}
     >
-      <FitCamera />
+      <FitCamera controls={controls} />
+      <YardControls controls={controls} paused={!!hovered} reducedMotion={reducedMotion} />
       <hemisphereLight args={['#DCE8F5', '#0D2137', 0.9]} />
       <directionalLight position={[5, 9, 4]} intensity={1.6} color="#FFF4E0" />
       <directionalLight position={[-6, 3, -4]} intensity={0.45} color="#3FC1B0" />
-      <Rig>
+      <group rotation={[0, 0.38, 0]}>
         <group position={[0, -0.4, 0]}>
           {items.map((p, i) => (
             <Container
@@ -261,7 +291,7 @@ export default function ContainerYard({ projects, onSelect, onHover, reducedMoti
               slot={SLOTS[i]}
               index={i}
               hovered={hovered}
-              setHovered={setHovered}
+              setHovered={onHover}
               onSelect={onSelect}
               animate={!reducedMotion}
               fontsReady={fontsReady}
@@ -271,7 +301,7 @@ export default function ContainerYard({ projects, onSelect, onHover, reducedMoti
           <gridHelper args={[14, 14, '#2D5378', '#1B3B5C']} position={[0, 0.001, 0]} />
           <ContactShadows position={[0, 0.002, 0]} scale={12} blur={2.2} opacity={0.55} far={4} color="#04101C" />
         </group>
-      </Rig>
+      </group>
     </Canvas>
   )
 }

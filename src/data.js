@@ -5,7 +5,7 @@ export const profile = {
   location: 'Callao, Perú',
   email: 'montesdylan52@gmail.com',
   phone: '+51 924 216 684',
-  whatsapp: 'https://wa.me/51924216684',
+  whatsapp: 'https://wa.me/51924216684?text=' + encodeURIComponent('Hola Dylan, vi tu portafolio y me gustaría conversar contigo.'),
   cv: '/cv/CV_Dylan_Montes_Castrillon.pdf',
   github: [
     { user: 'DJMC13', url: 'https://github.com/DJMC13', label: 'GitHub personal' },

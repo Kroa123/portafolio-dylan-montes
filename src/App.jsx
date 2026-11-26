@@ -142,7 +142,7 @@ function Hero({ reducedMotion }) {
           <div className="yard-canvas" aria-hidden="true">
             {webgl ? (
               <Suspense fallback={<div className="yard-loading" />}>
-                <ContainerYard projects={yardProjects} onSelect={goTo} onHover={setHovered} reducedMotion={reducedMotion} />
+                <ContainerYard projects={yardProjects} onSelect={goTo} hovered={hovered} onHover={setHovered} reducedMotion={reducedMotion} />
               </Suspense>
             ) : (
               <div className="yard-loading" />
@@ -155,9 +155,27 @@ function Hero({ reducedMotion }) {
                 <span>{hoveredProject.subtitle}. Haz clic para verlo.</span>
               </>
             ) : (
-              <span>Antes de programar trabajé como estibador en el puerto del Callao. Aquí cada contenedor es un proyecto: tócalo o haz clic para verlo.</span>
+              <span>Antes de programar trabajé como estibador en el puerto del Callao. Cada contenedor es un proyecto: arrastra para girar la pila y haz clic en uno para verlo.</span>
             )}
           </div>
+          <ul className="yard-list" aria-label="Proyectos de la pila">
+            {yardProjects.map((p) => (
+              <li key={p.id}>
+                <button
+                  type="button"
+                  className={`yard-chip ${hovered === p.id ? 'is-active' : ''}`}
+                  style={{ '--c': p.color }}
+                  onMouseEnter={() => setHovered(p.id)}
+                  onMouseLeave={() => setHovered((h) => (h === p.id ? null : h))}
+                  onFocus={() => setHovered(p.id)}
+                  onBlur={() => setHovered((h) => (h === p.id ? null : h))}
+                  onClick={() => goTo(p.id)}
+                >
+                  {p.title}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
@@ -349,6 +367,9 @@ function Contact() {
           Busco un puesto como desarrollador frontend o full stack. Respondo el mismo día por correo o WhatsApp.
         </p>
         <a className="contact-mail" href={`mailto:${profile.email}`}>{profile.email}</a>
+        <a className="contact-phone" href={profile.whatsapp} target="_blank" rel="noreferrer" aria-label={`Escribir por WhatsApp al ${profile.phone}`}>
+          <WhatsappIcon size={22} /> {profile.phone}
+        </a>
         <div className="contact-actions">
           <a className="btn btn--primary" href={profile.whatsapp} target="_blank" rel="noreferrer"><WhatsappIcon size={17} /> Escribir por WhatsApp</a>
           <a className="btn btn--ghost" href={profile.cv} download>Descargar CV <Download size={17} aria-hidden="true" /></a>
