@@ -118,6 +118,7 @@ export const projects = [
       'Cuentas con Firebase, ingreso con huella y modo demo para probarla sin registrarse.',
     ],
     stack: ['Kotlin', 'Android Studio', 'Firebase'],
+    repoPrivate: true,
     shots: ['/shots/yopeti-vender.webp', '/shots/yopeti-reportes.webp', '/shots/yopeti-categorias.webp'],
     shotType: 'phone',
   },
