@@ -1,0 +1,287 @@
+export const profile = {
+  name: 'Dylan Montes Castrillón',
+  shortName: 'Dylan Montes',
+  role: 'Desarrollador Full Stack',
+  location: 'Callao, Perú',
+  email: 'montesdylan52@gmail.com',
+  phone: '+51 924 216 684',
+  whatsapp: 'https://wa.me/51924216684',
+  cv: '/cv/CV_Dylan_Montes_Castrillon.pdf',
+  github: [
+    { user: 'DJMC13', url: 'https://github.com/DJMC13', label: 'GitHub personal' },
+    { user: 'Kroa123', url: 'https://github.com/Kroa123', label: 'GitHub Kroa (marca propia)' },
+  ],
+}
+
+// status: live = desplegado y público · prod = en producción interna · apk = instalable · code = código y capturas
+export const projects = [
+  {
+    id: 'perfect-clean',
+    title: 'Perfect Clean',
+    subtitle: 'Rediseño del sitio web corporativo',
+    kind: ['web'],
+    status: 'live',
+    year: '2026',
+    color: '#3FC1B0',
+    summary:
+      'Rediseño completo del sitio de una empresa de limpieza de muebles y alfombras en Lima. Sitio estático rápido, con SEO técnico y formulario de cotización que llega directo a WhatsApp.',
+    bullets: [
+      'Seis páginas de servicio generadas desde una sola plantilla y contenido centralizado.',
+      'Imágenes AVIF/WebP responsivas, Open Graph, datos estructurados JSON-LD y sitemap.',
+      'Formulario de cotización con validación y envío por WhatsApp o correo.',
+    ],
+    stack: ['Astro', 'TypeScript', 'Tailwind CSS', 'Vercel'],
+    live: 'https://perfect-clean-demo.vercel.app',
+    repo: 'https://github.com/Kroa123/perfect-clean-web',
+    repoPrivate: true,
+    shot: '/shots/perfectclean-full.webp',
+    shotType: 'scroll',
+  },
+  {
+    id: 'valle-vet',
+    title: 'Valle Vet',
+    subtitle: 'Web de clínica veterinaria con tienda',
+    kind: ['web'],
+    status: 'live',
+    year: '2026',
+    color: '#F2C230',
+    summary:
+      'Sitio para una clínica veterinaria con catálogo, carrito y pedido por WhatsApp, reserva de citas y un visor 3D de los productos.',
+    bullets: [
+      'Tienda con filtros guardados en la URL, carrito persistente y detalle de producto con visor 3D.',
+      'Formulario de reserva por servicio y veterinario; rutas cargadas por partes para que abra rápido.',
+      'Animaciones con GSAP y desplazamiento suave, cuidando accesibilidad y movimiento reducido.',
+    ],
+    stack: ['React 18', 'React Router', 'Three.js', 'GSAP', 'Tailwind CSS v4'],
+    live: 'https://landing-veterinaria-kroa.vercel.app',
+    repo: 'https://github.com/Kroa123/Landing-Veterinaria',
+    shot: '/shots/vallevet-full.webp',
+    shotType: 'scroll',
+  },
+  {
+    id: 'calendar',
+    title: 'Calendar Devdatep',
+    subtitle: 'Calendario corporativo para gerencia',
+    kind: ['web', 'backend'],
+    status: 'prod',
+    year: '2026',
+    color: '#4F7CAC',
+    summary:
+      'Aplicación en producción que usa la gerencia de Devdatep Consulting para registrar y seguir sus reuniones y el avance de cada proyecto.',
+    bullets: [
+      'Desarrollo de punta a punta: React y Tailwind en el frontend, Laravel con endpoints que llaman a procedimientos almacenados en SQL.',
+      'Integra por API datos que ya existían en otra base de datos de la empresa.',
+      'Vistas de día, semana y mes, con estado y fecha límite de cada proyecto.',
+    ],
+    stack: ['React', 'Tailwind CSS', 'PHP Laravel', 'SQL', 'APIs REST'],
+    repo: 'https://github.com/DJMC13/calendar-2.0',
+    repoNote: 'Prototipo público del frontend; la versión de producción es interna.',
+    shot: '/shots/calendar-full.webp',
+    shotType: 'static',
+  },
+  {
+    id: 'kroa-ahorros',
+    title: 'Kroa Ahorros',
+    subtitle: 'App Android de finanzas personales',
+    kind: ['movil'],
+    status: 'code',
+    statusLabel: 'Lista para Google Play',
+    year: '2026',
+    color: '#E4572E',
+    summary:
+      'Registra sola los pagos de Yape, Plin y bancos peruanos leyendo sus notificaciones y los clasifica por categoría. Sin claves bancarias y con los datos guardados solo en el celular.',
+    bullets: [
+      'Lectura de constancias con reconocimiento de texto (ML Kit), presupuestos con alertas y metas de ahorro.',
+      'Arquitectura por capas (domain, data, ui), bloqueo biométrico y tareas en segundo plano con WorkManager.',
+      'Versión 2.x con ficha, políticas y capturas preparadas para su publicación.',
+    ],
+    stack: ['Kotlin', 'Jetpack Compose', 'Coroutines', 'WorkManager', 'ML Kit'],
+    repo: 'https://github.com/Kroa123/kroa-ahorros',
+    repoPrivate: true,
+    shots: ['/shots/kroa-captura-1-inicio.webp', '/shots/kroa-captura-3-grafico.webp', '/shots/kroa-captura-4-metas.webp'],
+    shotType: 'phone',
+  },
+  {
+    id: 'yopeti',
+    title: 'YOPETI',
+    subtitle: 'Sistema de ventas para bodega',
+    kind: ['movil'],
+    status: 'apk',
+    year: '2025',
+    color: '#9BC53D',
+    summary:
+      'App Android para una bodega: controla el stock en tiempo real y muestra estadísticas de ventas por día, semana, mes y año.',
+    bullets: [
+      'Inventario con productos, entradas y salidas sincronizado en tiempo real.',
+      'Base de datos en Firebase con reglas de seguridad propias.',
+    ],
+    stack: ['Kotlin', 'Android Studio', 'Firebase'],
+    download: 'https://github.com/Kroa123/yopeti-releases/releases/latest',
+    repo: 'https://github.com/Kroa123/yopeti-releases',
+    shotType: 'none',
+  },
+  {
+    id: 'vantix',
+    title: 'Vantix ERP',
+    subtitle: 'Gestión empresarial por módulos',
+    kind: ['web', 'backend'],
+    status: 'code',
+    year: '2026',
+    color: '#7B6CF6',
+    summary:
+      'ERP para centralizar inventario, ventas, compras, clientes, recursos humanos y finanzas, con dashboards y reportes exportables.',
+    bullets: [
+      'Dashboards con gráficos por período, alertas de stock y exportación a Excel y PDF.',
+      'Permisos por rol (administrador y trabajador), autenticación JWT, Helmet y límite de peticiones.',
+    ],
+    stack: ['React', 'Node.js', 'Express', 'Sequelize', 'MySQL', 'JWT'],
+    repo: 'https://github.com/DJMC13/Vantix.erp',
+    shot: '/shots/vantix-full.webp',
+    shotType: 'static',
+  },
+  {
+    id: 'productos-net',
+    title: 'Productos API',
+    subtitle: 'API REST en .NET con frontend Angular',
+    kind: ['backend', 'web'],
+    status: 'code',
+    year: '2026',
+    color: '#5BC0EB',
+    summary:
+      'CRUD completo de productos: API en ASP.NET Core con Entity Framework y SQL Server, consumida por un frontend en Angular.',
+    bullets: [
+      'Minimal APIs en .NET 10, migraciones con datos de ejemplo y CORS configurado para el frontend.',
+      'Frontend Angular con componentes, servicios y modelos tipados en TypeScript.',
+    ],
+    stack: ['C#', 'ASP.NET Core', 'EF Core', 'SQL Server', 'Angular', 'TypeScript'],
+    repo: 'https://github.com/DJMC13/api-productos-net',
+    repo2: { label: 'Frontend Angular', url: 'https://github.com/DJMC13/frontend-productos-angular' },
+    shotType: 'none',
+  },
+  {
+    id: 'homeiq',
+    title: 'HomeIQ',
+    subtitle: 'Plataforma web inmobiliaria',
+    kind: ['web', 'backend'],
+    status: 'code',
+    year: '2026',
+    color: '#C9A46A',
+    summary:
+      'Centraliza las cotizaciones de proyectos inmobiliarios en Lima para que no se pierdan los datos de los interesados.',
+    bullets: [
+      'Listado con filtros por distrito, detalle por departamento y formulario de cotización guardado en base de datos.',
+      'API en Node.js y Express con base de datos SQL.',
+    ],
+    stack: ['React', 'Node.js', 'Express', 'SQL'],
+    repo: 'https://github.com/DJMC13/homeiq',
+    shot: '/shots/homeiq-full.webp',
+    shotType: 'static',
+  },
+  {
+    id: 'recuerdos',
+    title: 'Recuerdos',
+    subtitle: 'Álbum digital compartido',
+    kind: ['web'],
+    status: 'code',
+    year: '2026',
+    color: '#E86A92',
+    summary:
+      'Web para guardar recuerdos en pareja: publicaciones con fotos y videos, galerías por lugar, comentarios y una carta animada.',
+    bullets: [
+      'Funciona sin configurar nada guardando todo en el navegador (IndexedDB) y se conecta a una Mock API para sincronizar.',
+      'Videos por archivo o enlace (YouTube, Google Drive, Vimeo) y despliegue listo para Netlify.',
+    ],
+    stack: ['React', 'Vite', 'IndexedDB', 'MockAPI', 'Netlify'],
+    repo: 'https://github.com/Kroa123/RecuerdosParejas',
+    shot: '/shots/recuerdos-full.webp',
+    shotType: 'scroll',
+  },
+  {
+    id: 'starwars',
+    title: 'Star Wars Explorer',
+    subtitle: 'Prueba técnica frontend',
+    kind: ['web'],
+    status: 'code',
+    year: '2026',
+    color: '#8FA5BD',
+    summary:
+      'Buscador de personajes que consume una API pública, resuelto como prueba técnica para un proceso de selección.',
+    bullets: [
+      'Consumo de API con React Query y Axios, búsqueda en vivo y configuración por variables de entorno.',
+    ],
+    stack: ['React', 'React Query', 'Axios', 'Tailwind CSS'],
+    repo: 'https://github.com/DJMC13/starwars-app',
+    shot: '/shots/starwars-full.webp',
+    shotType: 'static',
+  },
+  {
+    id: 'tesis',
+    title: 'Inventario con ML',
+    subtitle: 'Tesis UCV, en curso',
+    kind: ['movil'],
+    status: 'progress',
+    year: '2026',
+    color: '#F28F3B',
+    summary:
+      'App móvil que aplica machine learning para optimizar el inventario y el abastecimiento de una empresa comercial real de Lima.',
+    bullets: [],
+    stack: ['App móvil', 'Machine learning'],
+    shotType: 'none',
+  },
+]
+
+export const statusInfo = {
+  live: { label: 'En vivo', tone: 'live' },
+  prod: { label: 'En producción', tone: 'prod' },
+  apk: { label: 'APK disponible', tone: 'prod' },
+  code: { label: 'Código y capturas', tone: 'code' },
+  progress: { label: 'En desarrollo', tone: 'code' },
+}
+
+export const experience = [
+  {
+    company: 'Devdatep Consulting',
+    role: 'Desarrollador Frontend React Junior, con funciones full stack',
+    period: 'Jul 2026 – Nov 2026',
+    current: false,
+    points: [
+      'Levanté y prioricé requerimientos en reuniones con gerencia y los convertí en soluciones técnicas.',
+      'Construí interfaces en React y Tailwind CSS desde diseños en Figma, con componentes reutilizables y responsivos.',
+      'Desarrollé APIs REST en PHP Laravel (controladores, middlewares, endpoints) y procedimientos almacenados en SQL.',
+      'Integré APIs externas, probé endpoints con Bruno y desplegué frontend y backend en local y producción.',
+      'Trabajé con Git por ramas e integración sobre develop en módulos de la intranet y webs de servicios.',
+    ],
+  },
+  {
+    company: 'APM Terminals, Terminal Portuario del Callao',
+    role: 'Estibador portuario',
+    period: 'Sep 2024 – Dic 2025',
+    points: [
+      'Operaciones de estiba y desestiba en entornos de alto riesgo, con protocolos de seguridad estrictos y coordinación con operadores y supervisores.',
+    ],
+  },
+  {
+    company: 'TALMA Servicios Aeroportuarios, Aeropuerto Jorge Chávez',
+    role: 'Auxiliar de rampa',
+    period: 'Dic 2022 – Feb 2023',
+    points: ['Estiba de equipaje y carga en aeronaves, cumpliendo normas de seguridad y tiempos de despacho.'],
+  },
+]
+
+export const skills = [
+  { group: 'Frontend', items: ['React', 'JavaScript', 'TypeScript', 'Angular', 'Astro', 'HTML y CSS', 'Tailwind CSS', 'Three.js', 'GSAP', 'Figma'] },
+  { group: 'Backend y APIs', items: ['PHP', 'Laravel', 'Node.js', 'Express', 'C#', 'ASP.NET Core', 'APIs REST', 'JWT'] },
+  { group: 'Bases de datos', items: ['SQL', 'Procedimientos almacenados', 'MySQL', 'SQL Server', 'Entity Framework', 'Firebase', 'IndexedDB'] },
+  { group: 'Móvil', items: ['Kotlin', 'Jetpack Compose', 'Android Studio', 'Firebase', 'ML Kit', 'Dart'] },
+  { group: 'Herramientas', items: ['Git', 'GitHub', 'Bruno', 'HeidiSQL', 'VS Code', 'Vercel', 'Netlify'] },
+  { group: 'IA aplicada', items: ['Claude', 'Gemini', 'Depuración asistida', 'Pruebas y documentación'] },
+]
+
+export const certifications = [
+  { name: 'Certificado de Gemini', org: 'Google', date: '2026' },
+  { name: 'Introducción a la Ciencia de Datos', org: 'Cisco Networking Academy', date: 'Ene 2026' },
+  { name: 'CCNA: Redes Empresariales, Seguridad y Automatización', org: 'Cisco Networking Academy', date: 'Ene 2026' },
+  { name: 'CyberOps Associate', org: 'Cisco Networking Academy', date: '2026' },
+  { name: 'Introducción a la Ciberseguridad', org: 'Cisco Networking Academy', date: 'Sep 2025' },
+  { name: 'Conceptos Básicos de Hardware de Computadora', org: 'Cisco Networking Academy', date: 'Mar 2025' },
+]
