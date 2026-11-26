@@ -109,16 +109,17 @@ export const projects = [
     status: 'code',
     statusLabel: 'App Android',
     year: '2025',
-    color: '#7B5CF0',
+    color: '#B8456A',
     summary:
-      'App Android para una bodega: controla el stock en tiempo real y muestra estadísticas de ventas por día, semana, mes y año.',
+      'App Android para bodegas: vende en pocos toques, controla el stock por categoría, registra fiados y muestra cuánto dinero entró en el día, la semana, el mes o el año.',
     bullets: [
-      'Inventario con productos, entradas y salidas sincronizado en tiempo real.',
-      'Base de datos en Firebase con reglas de seguridad propias.',
+      'Ventas con carrito, búsqueda y alertas de stock bajo o productos agotados.',
+      'Reportes por período y por método de pago, y control de fiados con abonos parciales.',
+      'Cuentas con Firebase, ingreso con huella y modo demo para probarla sin registrarse.',
     ],
     stack: ['Kotlin', 'Android Studio', 'Firebase'],
-    logo: '/shots/yopeti-logo.webp',
-    shotType: 'logo',
+    shots: ['/shots/yopeti-vender.webp', '/shots/yopeti-reportes.webp', '/shots/yopeti-categorias.webp'],
+    shotType: 'phone',
   },
   {
     id: 'vantix',

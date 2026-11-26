@@ -241,7 +241,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .phone {
   width: min(30%, 180px); border-radius: 22px; padding: 6px; background: #05101C;
   border: 1px solid #2A4A6B; box-shadow: 0 20px 40px -20px rgba(0,0,0,.8);
-  transform: translateY(calc(var(--i) * -14px + 14px));
+  transform: translateY(6px);
 }
 .phone:nth-child(2) { transform: translateY(-14px); }
 .phone img { border-radius: 16px; width: 100%; height: auto; }
