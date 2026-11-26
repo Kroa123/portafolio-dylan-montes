@@ -52,6 +52,7 @@ function Header() {
     return () => window.removeEventListener('scroll', fn)
   }, [])
   const links = [
+    ['#sobre-mi', 'Sobre mí'],
     ['#proyectos', 'Proyectos'],
     ['#experiencia', 'Experiencia'],
     ['#habilidades', 'Habilidades'],
@@ -106,11 +107,14 @@ function Hero({ reducedMotion }) {
     <section id="inicio" className="hero" ref={root}>
       <div className="wrap hero-grid">
         <div className="hero-copy">
-          <p className="hero-status hero-fade">
-            <span className="dot" aria-hidden="true" /> Disponible para nuevas oportunidades
-          </p>
+          <div className="hero-id hero-fade">
+            <img className="hero-photo" src="/foto.webp" alt="Foto de Dylan Jefferson Montes Castrillón" width="233" height="287" />
+            <p className="hero-status">
+              <span className="dot" aria-hidden="true" /> Disponible para nuevas oportunidades
+            </p>
+          </div>
           <h1 className="hero-title">
-            <span className="mask"><span className="hero-line">Dylan</span></span>
+            <span className="mask"><span className="hero-line">Dylan Jefferson</span></span>
             <span className="mask"><span className="hero-line">Montes Castrillón</span></span>
           </h1>
           <p className="hero-role hero-fade">Desarrollador full stack</p>
@@ -164,6 +168,58 @@ function Hero({ reducedMotion }) {
           <div><dt>Apps Android</dt><dd>Kroa Ahorros y YOPETI</dd></div>
           <div><dt>Formación</dt><dd>Ingeniería de Sistemas, IX ciclo, UCV</dd></div>
         </dl>
+      </div>
+    </section>
+  )
+}
+
+const QUALITIES = ['Puntualidad', 'Responsabilidad', 'Ganas de salir adelante', 'Aprendizaje rápido', 'Trabajo en equipo', 'Comunicación con gerencia', 'Disciplina', 'Constancia']
+
+function About() {
+  return (
+    <section id="sobre-mi" className="section about">
+      <div className="wrap">
+        <div className="section-head">
+          <h2 className="section-title">Conoce sobre mí</h2>
+          <p className="section-lead">Quién soy dentro y fuera del código.</p>
+        </div>
+        <div className="about-grid">
+          <figure className="about-photo">
+            <img src="/foto.webp" alt="Dylan Jefferson Montes Castrillón" width="233" height="287" loading="lazy" />
+            <figcaption>Dylan Jefferson Montes Castrillón<br /><span>Ingeniería de Sistemas, UCV</span></figcaption>
+          </figure>
+          <div className="about-text">
+            <h3>Como ingeniero de sistemas</h3>
+            <p>
+              Estudio Ingeniería de Sistemas en la Universidad César Vallejo (IX ciclo) y me gusta entender un problema
+              completo antes de escribir código: conversar con quien lo vive, ordenar los requerimientos, diseñar la base
+              de datos y recién ahí construir. Disfruto ver un sistema pasar de una idea en una reunión a algo que la gente
+              usa todos los días, como el calendario que hoy usa la gerencia de Devdatep.
+            </p>
+            <p>
+              Me considero una persona puntual, responsable y con muchas ganas de salir adelante. Vengo de trabajar en el
+              puerto y en el aeropuerto, donde la seguridad y los tiempos no se negocian; esa disciplina la traigo a cada
+              entrega. Aprendo rápido, pregunto cuando algo no está claro y uso herramientas de IA para avanzar más rápido
+              sin dejar de entender lo que hago. Mi tesis aplica machine learning a la gestión de inventarios de una
+              empresa real, porque quiero que lo que construyo tenga impacto concreto.
+            </p>
+            <ul className="chips about-qualities" aria-label="Cualidades">
+              {QUALITIES.map((q) => <li key={q}>{q}</li>)}
+            </ul>
+
+            <h3>Fuera del código: la música</h3>
+            <p>
+              La música es mi pasión. Desde hace 4 años soy tubista en la banda Anthony's Friends, y cada ensayo y cada
+              presentación me llenan de una forma que nada más lo hace. La tuba sostiene la base de toda la banda: no
+              siempre se luce, pero sin ella la música no se sostiene.
+            </p>
+            <p>
+              Tocar en una banda me enseñó cosas que aplico todos los días como desarrollador: llegar a tiempo, practicar
+              con constancia, escuchar al resto y saber cuándo entrar. Un buen equipo, como una buena banda, suena bien
+              cuando cada uno hace su parte con compromiso.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   )
@@ -313,6 +369,7 @@ export default function App() {
       <Header />
       <main>
         <Hero reducedMotion={reducedMotion} />
+        <About />
         <Projects />
         <Experience />
         <Skills />

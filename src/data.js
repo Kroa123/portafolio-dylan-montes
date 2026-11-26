@@ -1,5 +1,5 @@
 export const profile = {
-  name: 'Dylan Montes Castrillón',
+  name: 'Dylan Jefferson Montes Castrillón',
   shortName: 'Dylan Montes',
   role: 'Desarrollador Full Stack',
   location: 'Callao, Perú',
