@@ -74,9 +74,9 @@ export const projects = [
       'Vistas de día, semana y mes, con estado y fecha límite de cada proyecto.',
     ],
     stack: ['React', 'Tailwind CSS', 'PHP Laravel', 'SQL', 'APIs REST'],
-    repo: 'https://github.com/DJMC13/calendar-2.0',
-    repoNote: 'Prototipo público del frontend; la versión de producción es interna.',
-    shot: '/shots/calendar-full.webp',
+    live: 'https://calendario.devdatep.com/',
+    repoNote: 'Sistema en producción: pide inicio de sesión porque lo usa la empresa a diario.',
+    shot: '/shots/calendar-prod.webp',
     shotType: 'static',
   },
   {
@@ -106,9 +106,10 @@ export const projects = [
     title: 'YOPETI',
     subtitle: 'Sistema de ventas para bodega',
     kind: ['movil'],
-    status: 'apk',
+    status: 'code',
+    statusLabel: 'App Android',
     year: '2025',
-    color: '#9BC53D',
+    color: '#7B5CF0',
     summary:
       'App Android para una bodega: controla el stock en tiempo real y muestra estadísticas de ventas por día, semana, mes y año.',
     bullets: [
@@ -116,9 +117,8 @@ export const projects = [
       'Base de datos en Firebase con reglas de seguridad propias.',
     ],
     stack: ['Kotlin', 'Android Studio', 'Firebase'],
-    download: 'https://github.com/Kroa123/yopeti-releases/releases/latest',
-    repo: 'https://github.com/Kroa123/yopeti-releases',
-    shotType: 'none',
+    logo: '/shots/yopeti-logo.webp',
+    shotType: 'logo',
   },
   {
     id: 'vantix',

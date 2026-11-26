@@ -44,7 +44,7 @@ function BrowserPreview({ project, href }) {
     <a className="browser" href={href} target="_blank" rel="noreferrer" aria-label={`Abrir ${project.title}`}>
       {body}
       <span className="browser-cta">
-        {project.live ? 'Abrir sitio' : 'Ver repositorio'} <ArrowUpRight size={16} aria-hidden="true" />
+        {project.live ? (project.status === 'prod' ? 'Abrir sistema' : 'Abrir sitio') : 'Ver repositorio'} <ArrowUpRight size={16} aria-hidden="true" />
       </span>
     </a>
   )
@@ -86,6 +86,11 @@ export default function ProjectCard({ project, featured }) {
           <BrowserPreview project={project} href={previewHref} />
         )}
         {project.shotType === 'none' && <Cover project={project} />}
+        {project.shotType === 'logo' && (
+          <div className="logo-cover" style={{ '--c': project.color }}>
+            <img src={project.logo} alt={`Logo de ${project.title}`} loading="lazy" decoding="async" width="420" height="420" />
+          </div>
+        )}
       </div>
 
       <div className="project-body">
@@ -107,7 +112,7 @@ export default function ProjectCard({ project, featured }) {
         <div className="project-actions">
           {project.live && (
             <a className="btn btn--primary btn--sm" href={project.live} target="_blank" rel="noreferrer">
-              Ver en vivo <ArrowUpRight size={16} aria-hidden="true" />
+              {project.status === 'prod' ? 'Abrir sistema' : 'Ver en vivo'} <ArrowUpRight size={16} aria-hidden="true" />
             </a>
           )}
           {project.download && (

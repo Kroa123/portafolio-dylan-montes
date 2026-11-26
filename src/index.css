@@ -379,3 +379,9 @@ body.is-grabbing, body.is-grabbing .yard-gl { cursor: grabbing; }
 }
 .contact-phone svg { color: var(--sea); flex: none; }
 .contact-phone:hover { color: var(--sea); border-color: var(--sea); }
+
+.logo-cover {
+  width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius-md); display: grid; place-items: center;
+  background: radial-gradient(60% 80% at 50% 50%, color-mix(in srgb, var(--c) 30%, #091829), #070F1C);
+}
+.logo-cover img { width: min(46%, 220px); height: auto; filter: drop-shadow(0 18px 30px rgba(0,0,0,.5)); }
